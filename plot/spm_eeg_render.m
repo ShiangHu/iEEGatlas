@@ -112,9 +112,9 @@ if ~isempty(options)
     
 end
 
-handles.ParentAxes = options.Parentaxis; % added by ah 
-ParentAxes = options.Parentaxis;               % added by ah
-% handles.ParentAxes = ParentAxes;        % commented by ah
+% handles.ParentAxes = options.Parentaxis; % added by ah 
+% ParentAxes = options.Parentaxis;               % added by ah
+handles.ParentAxes = ParentAxes;        % commented by ah
 oldRenderer = get(handles.fi,'renderer');
 try
     if ismac
