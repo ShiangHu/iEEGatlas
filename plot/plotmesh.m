@@ -70,3 +70,32 @@ cortex_iEEG.Reg.Sphere.Vertices=[];
 % cortex_iEEG.Reg.Sphere.Vertices=[];
 % import cortex_iEEG from MATLAB workspace to Brainstorm subject
 
+iEEGmat = load('WakefulnessMatlabFile.mat');
+chan19 = load('/home/shu/brainstorm_db/Protocol01/data/Subject01/@intra/channel_10-20_19.mat');
+chan_iEEG = chan19;
+chan_iEEG.Channel = repmat(chan_iEEG.Channel(1),[1772,1]);
+chan_iEEG.Comment = 'iEEG';
+for i=1:1772
+chan_iEEG.Channel(i).Loc = iEEGmat.ChannelPosition(i,:)./100;
+chan_iEEG.Channel(i).Name = iEEGmat.ChannelName(i);
+chan_iEEG.Channel(i).Type = 'SEEG';
+chan_iEEG.Channel(i).Comment = iEEGmat.ChannelRegion(i);
+end
+
+fid = fopen('ele/elec_allregion_mni.txt','w');
+for i=1:1772
+fprintf(fid,'%s %.4f %.4f %.4f\n',num2str(i),iEEGmat.ChannelPosition(i,1),iEEGmat.ChannelPosition(i,2),iEEGmat.ChannelPosition(i,3));
+end
+fclose(fid);
+
+for r=1:39
+    region = iEEGmat.RegionName{r};
+    chn = find(iEEGmat.ChannelRegion == r);
+    fid = fopen(['ele/elec_',region,'_mni.txt'],'w');
+    for i=1:length(chn)
+        c = chn(i);
+        fprintf(fid,'%s %.4f %.4f %.4f\n',iEEGmat.ChannelName{c},iEEGmat.ChannelPosition(c,1),...
+            iEEGmat.ChannelPosition(c,2),iEEGmat.ChannelPosition(c,3));
+    end
+    fclose(fid);
+end
