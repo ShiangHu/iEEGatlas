@@ -67,6 +67,7 @@ tmp = tmp./repmat(max(tmp) - min(tmp),nver,1).*repmat(max(Ref)-min(Ref),nver,1);
 cortex_iEEG.Vertices = tmp + repmat(max(Ref) - max(tmp),nver,1);
 cortex_iEEG.Reg.Sphere.Vertices=[];
 % cortex_iEEG.Vertices = cortex_iEEG.Vertices * 0.8; % avoid the vertives override the innerskull
+% mannually fix by clicking 'force into skull'
 % cortex_iEEG=rmfield(cortex_iEEG,'mrimask');
 % import cortex_iEEG from MATLAB workspace to Brainstorm subject
 
