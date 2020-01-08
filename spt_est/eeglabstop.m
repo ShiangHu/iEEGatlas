@@ -1,1 +1,0 @@
-rmpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\Toolbox\eeglab');
